@@ -1,6 +1,6 @@
-from simple_screen import Screen_manager, locate, cls, init, finish, Print, Input
+from simple_screen import Screen_manager, locate, init, finish
 from cesar_class import Cifrador
-from funcs import calculo_width, mostrar_error, mostrar_mensaje_cifrado, obtener_cifrado_y_mensaje, salir_programa, print_cabecera
+from funcs import *
 
 with Screen_manager as sc:
         
