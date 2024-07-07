@@ -56,6 +56,6 @@ class Cifrador:
         return cesar(mensaje, self.d)
 
    
-ana = Cifrador(4)
-print(ana.cifrados_pendientes)
-print(ana.cifrar("Hola"))
+# ana = Cifrador(4)
+# Print(ana.cifrados_pendientes)
+# Print(ana.cifrar("Hola"))
