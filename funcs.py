@@ -1,59 +1,43 @@
-from simple_screen import Screen_manager, locate, cls, Print
-
-def print_cabecera():
-    cls()
-    cabecera = """
-    ***********************************
-    *                                 *
-    *          CIFRADO CESAR          *
-    *                                 *
-    ***********************************
-    """
-    Print(cabecera)
-
-def cesar(cadena: str, codificacion: int) -> str:
-    alfabeto = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ "
-    cifrado_realizado = ""
-    long_alfabeto = len(alfabeto)
-
-    for caracter in cadena.upper():
-        if caracter in alfabeto:
-            indice = alfabeto.index(caracter)
-            indice_cifrado = (indice + codificacion) % long_alfabeto # si es mayor de long alfabeto se hace modulo para saber el sobrante y empezar de nuevo 
-            cifrado_realizado += alfabeto[indice_cifrado]
-        else:
-            cifrado_realizado += caracter
-    return cifrado_realizado
+from simple_screen import cls, Print, pen, locate, Input, DIMENSIONS
+from simple_screen.entities import Color
 
 
-def crea_cifrador(d: int) -> callable:
-    def cifrador_interno(cadena):
-        return cesar(cadena, d)
-    return cifrador_interno
+def calculo_width():
+    width = DIMENSIONS.w
+    column_center = (width - len("*          CIFRADO CESAR          *")) // 2 
+    return column_center
 
-
-def crea_par_cesar(d: int) -> tuple:
-    def cifrador_interno(cadena):
-        return cesar(cadena, d)
-    def descifrador_interno(cadena):
-        return cesar(cadena, -d)
-    return cifrador_interno, descifrador_interno
-
-
-
-class Cifrador:
-    def __init__(self, d) -> None:
-        self.d = d
-        self.cifrados_pendientes = 5
+def obtener_cifrado_y_mensaje(ancho_pantalla):
+    locate(ancho_pantalla, 7)
+    cifrado = int(Input("Distancia de cifrado: "))
     
-    def cifrar(self, mensaje) -> str:
+    locate(ancho_pantalla, 8)
+    mensaje = Input("Mensaje a cifrar: ")
+    
+    return cifrado, mensaje
 
-        if self.cifrados_pendientes == 0:
-            return "Compre en cifrados Pepe!"
+def mostrar_mensaje_cifrado(ancho_pantalla, mensaje_cifrado):
+    locate(ancho_pantalla, 10)
+    Print(f"Mensaje cifrado: {mensaje_cifrado}")
 
-        self.cifrados_pendientes -= 1
+def salir_programa(ancho_pantalla):
+    locate(ancho_pantalla, 14)
+    salida = Input("¿Otro mensaje (S/N)?: ")
+    return salida.lower() != 's'
 
-        return cesar(mensaje, self.d)
+def print_cabecera(espacio_centrado):
+    cls()
+    pen(Color(0, 255, 0))  # Establece el color verde lima para la cabecera
+    Print(f"{' ' * espacio_centrado}***********************************")
+    Print(f"{' ' * espacio_centrado}*                                 *")
+    Print(f"{' ' * espacio_centrado}*          CIFRADO CESAR          *")
+    Print(f"{' ' * espacio_centrado}*                                 *")
+    Print(f"{' ' * espacio_centrado}***********************************") 
+
+
+
+
+
 
    
 # ana = Cifrador(4)
