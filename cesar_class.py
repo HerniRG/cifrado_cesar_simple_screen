@@ -14,7 +14,7 @@ class Cifrador:
                 indice_cifrado = (indice + self.d) % long_alfabeto # si es mayor de long alfabeto se hace modulo para saber el sobrante y empezar de nuevo 
                 cifrado_realizado += alfabeto[indice_cifrado]
             else:
-                cifrado_realizado += caracter
+                return "Hay caracteres no adminitidos en el mensaje."
         return cifrado_realizado
     
     def cifrar(self, mensaje) -> str:
