@@ -29,13 +29,22 @@ class Cifrador:
     
     def crea_cifrador(self) -> callable:
         def cifrador_interno(cadena):
-            return self.cesar(cadena, self.d)
+            return self.cesar(cadena)
         return cifrador_interno
 
 
     def crea_par_cesar(self) -> tuple:
         def cifrador_interno(cadena):
-            return self.cesar(cadena, self.d)
+            return self.cesar(cadena)
         def descifrador_interno(cadena):
-            return self.cesar(cadena, -self.d)
+            self.d = -self.d
+            descifrado = self.cesar(cadena)
+            self.d = -self.d  # Restaurar el desplazamiento original
+            return descifrado
         return cifrador_interno, descifrador_interno
+    
+
+cifrador1, descifrador1 = Cifrador(1).crea_par_cesar()
+
+print(cifrador1("Hola"))
+print(descifrador1("IPMB"))
